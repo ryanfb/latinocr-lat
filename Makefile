@@ -60,8 +60,8 @@ images: fonts training_text.txt
 	for i in $(FONT_NAMES); do \
 		n=`echo $$i | sed 's/ //g'` ; \
 		for e in -3 -2 -1 0 1 2 3; do \
-			text2image --exposure $$e --deterministic=true --fonts_dir . \
-			           --text training_text.txt --outputbase grc.$$n.exp$$e --font "$$i" ; \
+			text2image --exposure $$e --fonts_dir . --text training_text.txt \
+			           --outputbase grc.$$n.exp$$e --font "$$i" ; \
 		done ; \
 	done
 	touch $@
