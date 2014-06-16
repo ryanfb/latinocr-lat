@@ -8,8 +8,6 @@ tools in the grctraining git repository located at
 - training_text.txt
 - grc.word.txt
 - grc.freq.txt
-- grc.punc.txt
-- grc.number.txt
 - grc.unicharambigs
 
 You can see the exact process for generating them in the grctraining
