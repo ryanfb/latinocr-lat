@@ -38,6 +38,7 @@ FONT_URLNAMES = \
                 GFS_PORSON_OT \
                 GFS_PYRSOS \
                 GFS_SOLOMOS_OT
+CHARSPACING = 1.0
 
 .SUFFIXES: .txt -dawg
 
@@ -60,7 +61,8 @@ images: fonts training_text.txt
 	for i in $(FONT_NAMES); do \
 		n=`echo $$i | sed 's/ //g'` ; \
 		for e in -3 -2 -1 0 1 2 3; do \
-			text2image --exposure $$e --fonts_dir . --text training_text.txt \
+			text2image --exposure $$e --char_spacing $(CHARSPACING) \
+			           --fonts_dir . --text training_text.txt \
 			           --outputbase grc.$$n.exp$$e --font "$$i" ; \
 		done ; \
 	done
