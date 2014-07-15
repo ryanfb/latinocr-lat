@@ -12,3 +12,6 @@ tools in the grctraining git repository located at
 
 You can see the exact process for generating them in the grctraining
 Makefile.
+
+The Greek.unicharset file has been copied from training/langdata in
+Tesseract's SVN repository.
