@@ -7,27 +7,27 @@ WORDLISTS = \
             grc.number.txt
 DAWGS = $(WORDLISTS:.txt=-dawg)
 FONT_NAMES = \
-             "GFS Artemisia" \
+             "GFS Artemisia Medium" \
              "GFS Artemisia Bold" \
              "GFS Artemisia Bold Italic" \
-             "GFS Artemisia Italic" \
-             "GFS Bodoni" \
+             "GFS Artemisia Medium Italic" \
+             "GFS Bodoni Medium" \
              "GFS Bodoni Bold" \
              "GFS Bodoni Bold Italic" \
-             "GFS Bodoni Italic" \
-             "GFS Didot" \
+             "GFS Bodoni Medium Italic" \
+             "GFS Didot Medium" \
              "GFS Didot Bold" \
              "GFS Didot Bold Italic" \
-             "GFS Didot Italic" \
-             "GFS DidotClassic" \
-             "GFS Neohellenic" \
+             "GFS Didot Medium Italic" \
+             "GFS DidotClassic Medium" \
+             "GFS Neohellenic Medium" \
              "GFS Neohellenic Bold" \
              "GFS Neohellenic Bold Italic" \
-             "GFS Neohellenic Italic" \
-             "GFS Philostratos" \
-             "GFS Porson" \
-             "GFS Pyrsos" \
-             "GFS Solomos"
+             "GFS Neohellenic Medium Italic" \
+             "GFS Philostratos Medium" \
+             "GFS Porson Medium" \
+             "GFS Pyrsos Medium" \
+             "GFS Solomos Medium"
 FONT_URLNAMES = \
                 GFS_ARTEMISIA_OT \
                 GFS_BODONI_OT \
