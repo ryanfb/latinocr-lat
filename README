@@ -1,17 +1,22 @@
+Latin OCR Training for Tesseract
+================================
+
+Produces: lat.traineddata
+
 You need wget, unzip and the Tesseract training tools to make this
 training.
 
 The following files have been automatically generated using the
-tools in the grctraining git repository located at
-  http://ancientgreekocr.org/grctraining.git
+tools in the lattraining git repository located at
+  https://github.com/ryanfb/latinocr-lattraining
 
 - training_text.txt
-- grc.word.txt
-- grc.freq.txt
-- grc.unicharambigs
+- lat.word.txt
+- lat.freq.txt
+- lat.unicharambigs
 
-You can see the exact process for generating them in the grctraining
+You can see the exact process for generating them in the lattraining
 Makefile.
 
-The Greek.unicharset file has been copied from training/langdata in
-Tesseract's SVN repository.
+The Latin.unicharset file has been copied from Tesseract's
+tesseract-ocr.langdata git repository.

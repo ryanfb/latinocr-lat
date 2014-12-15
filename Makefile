@@ -1,10 +1,10 @@
 FONTSITE = http://greekfontsociety.gr
 # FONTSITE = http://ancientgreekocr.org/archived # backup copies
 WORDLISTS = \
-            grc.word.txt \
-            grc.freq.txt \
-            grc.punc.txt \
-            grc.number.txt
+            lat.word.txt \
+            lat.freq.txt \
+            lat.punc.txt \
+            lat.number.txt
 DAWGS = $(WORDLISTS:.txt=-dawg)
 FONT_NAMES = \
              "GFS Artemisia Medium" \
@@ -42,10 +42,10 @@ CHARSPACING = 1.0
 
 .SUFFIXES: .txt -dawg
 
-all: grc.traineddata
+all: lat.traineddata
 
-grc.traineddata: features mftraining grc.normproto grc.unicharambigs $(DAWGS)
-	combine_tessdata grc.
+lat.traineddata: features mftraining lat.normproto lat.unicharambigs $(DAWGS)
+	combine_tessdata lat.
 
 fonts:
 	for i in $(FONT_URLNAMES); do \
@@ -63,7 +63,7 @@ images: fonts training_text.txt
 		for e in -3 -2 -1 0 1 2 3; do \
 			text2image --exposure $$e --char_spacing $(CHARSPACING) \
 			           --fonts_dir . --text training_text.txt \
-			           --outputbase grc.$$n.exp$$e --font "$$i" ; \
+			           --outputbase lat.$$n.exp$$e --font "$$i" ; \
 		done ; \
 	done
 	touch $@
@@ -74,31 +74,31 @@ features: images
 	touch $@
 
 # unicharset to pass to mftraining
-grc.earlyunicharset: images
+lat.earlyunicharset: images
 	unicharset_extractor *box
 	set_unicharset_properties -U unicharset -O $@ --script_dir .
 	rm unicharset
 
 # cntraining
-grc.normproto: features
-	cntraining grc*tr
+lat.normproto: features
+	cntraining lat*tr
 	mv normproto $@
 
 # mftraining
-mftraining: grc.earlyunicharset features font_properties
-	mftraining -F font_properties -U grc.earlyunicharset -O grc.unicharset grc*tr
-	for i in inttemp pffmtable shapetable; do mv $$i grc.$$i; done
+mftraining: lat.earlyunicharset features font_properties
+	mftraining -F font_properties -U lat.earlyunicharset -O lat.unicharset lat*tr
+	for i in inttemp pffmtable shapetable; do mv $$i lat.$$i; done
 	touch mftraining
 
 .txt-dawg: mftraining # for the newest .unicharset
-	wordlist2dawg $< $@ grc.unicharset
+	wordlist2dawg $< $@ lat.unicharset
 
-install: grc.traineddata
-	cp grc.traineddata ../../../tessdata
+install: lat.traineddata
+	cp lat.traineddata ../../../tessdata
 
 clean:
-	rm -f images features mftraining *tif *box *tr *dawg grc.GFS*txt
-	rm -f grc.inttemp grc.normproto grc.pffmtable grc.shapetable grc.unicharset grc.earlyunicharset
+	rm -f images features mftraining *tif *box *tr *dawg lat.GFS*txt
+	rm -f lat.inttemp lat.normproto lat.pffmtable lat.shapetable lat.unicharset lat.earlyunicharset
 
 cleanfonts:
 	rm -f fonts *otf
