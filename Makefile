@@ -3,8 +3,7 @@ FONTSITE = http://greekfontsociety.gr
 WORDLISTS = \
             lat.word.txt \
             lat.freq.txt \
-            lat.punc.txt \
-            lat.number.txt
+            lat.punc.txt
 DAWGS = $(WORDLISTS:.txt=-dawg)
 FONT_NAMES = \
              "GFS Artemisia" \
