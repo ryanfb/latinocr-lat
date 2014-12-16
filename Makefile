@@ -6,27 +6,39 @@ WORDLISTS = \
             lat.punc.txt
 DAWGS = $(WORDLISTS:.txt=-dawg)
 FONT_NAMES = \
-             "GFS Artemisia Medium" \
-             "GFS Artemisia Bold" \
-             "GFS Artemisia Bold Italic" \
-             "GFS Artemisia Medium Italic" \
              "GFS Bodoni Medium" \
-             "GFS Bodoni Bold" \
-             "GFS Bodoni Bold Italic" \
-             "GFS Bodoni Medium Italic" \
              "GFS Didot Medium" \
-             "GFS Didot Bold" \
-             "GFS Didot Bold Italic" \
-             "GFS Didot Medium Italic" \
-             "GFS DidotClassic Medium" \
-             "GFS Neohellenic Medium" \
-             "GFS Neohellenic Bold" \
-             "GFS Neohellenic Bold Italic" \
-             "GFS Neohellenic Medium Italic" \
-             "GFS Philostratos Medium" \
-             "GFS Porson Medium" \
-             "GFS Pyrsos Medium" \
-             "GFS Solomos Medium"
+             "Cardo Medium" \
+             "IM FELL DW Pica PRO Medium" \
+             "IM FELL Double Pica PRO Medium" \
+             "IM FELL English PRO Medium" \
+             "IM FELL French Canon PRO Medium" \
+             "IM FELL Great Primer PRO Medium" 
+#             "GFS Bodoni Bold" \
+#             "GFS Bodoni Bold Italic" \
+#             "GFS Bodoni Medium Italic" \
+#             "GFS Didot Bold" \
+#             "GFS Didot Bold Italic" \
+#             "GFS Didot Medium Italic" \
+#             "Cardo Bold" \
+#             "Cardo Bold Italic" \
+#             "Cardo Medium Italic" \
+# proprietary fonts
+#             "Baskerville Medium" \
+#             "Baskerville Bold" \
+#             "Baskerville Bold Italic" \
+#             "Baskerville Medium Italic" \
+#             "Adobe Garamond Pro Medium" \
+#             "Adobe Garamond Pro Bold" \
+#             "Adobe Garamond Pro Bold Italic" \
+#             "Adobe Garamond Pro Medium Italic" \
+#             "EB Garamond Medium" \
+#             "EB Garamond Medium Italic" \
+#             "IM FELL DW Pica PRO Medium Italic" \
+#             "IM FELL Double Pica PRO Medium Italic" \
+#             "IM FELL English PRO Medium Italic" \
+#             "IM FELL French Canon PRO Medium Italic" \
+#             "IM FELL Great Primer PRO Medium Italic"
 FONT_URLNAMES = \
                 GFS_ARTEMISIA_OT \
                 GFS_BODONI_OT \
