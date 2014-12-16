@@ -5,15 +5,18 @@ WORDLISTS = \
             lat.freq.txt \
             lat.punc.txt
 DAWGS = $(WORDLISTS:.txt=-dawg)
+ifeq ($(shell uname),Darwin)
+	MEDIUM = Medium
+endif
 FONT_NAMES = \
-             "GFS Bodoni Medium" \
-             "GFS Didot Medium" \
-             "Cardo Medium" \
-             "IM FELL DW Pica PRO Medium" \
-             "IM FELL Double Pica PRO Medium" \
-             "IM FELL English PRO Medium" \
-             "IM FELL French Canon PRO Medium" \
-             "IM FELL Great Primer PRO Medium" 
+             "$(strip GFS Bodoni ${MEDIUM})" \
+             "$(strip GFS Didot ${MEDIUM})" \
+             "$(strip Cardo ${MEDIUM})" \
+             "$(strip IM FELL DW Pica PRO ${MEDIUM})" \
+             "$(strip IM FELL Double Pica PRO ${MEDIUM})" \
+             "$(strip IM FELL English PRO ${MEDIUM})" \
+             "$(strip IM FELL French Canon PRO ${MEDIUM})" \
+             "$(strip IM FELL Great Primer PRO ${MEDIUM})"
 #             "GFS Bodoni Bold" \
 #             "GFS Bodoni Bold Italic" \
 #             "GFS Bodoni Medium Italic" \
