@@ -1,5 +1,7 @@
 FONTSITE = http://greekfontsociety.gr
 # FONTSITE = http://ancientgreekocr.org/archived # backup copies
+CARDOFONTURL = http://scholarsfonts.net/cardo104.zip
+FELLFONTURL = http://iginomarini.com/fell/wp-content/uploads/IMFellTypesClass.zip
 WORDLISTS = \
             lat.word.txt \
             lat.freq.txt \
@@ -68,7 +70,13 @@ fonts:
 		rm -f OFL-FAQ.txt OFL.txt *Specimen.pdf *Specimenn.pdf ; \
 		rm -f readme.rtf .DS_Store ._* $$i.zip; \
 	done
-	chmod 644 *otf
+	wget -q -O cardo.zip $(CARDOFONTURL) ; \
+		unzip -q -j cardo.zip ; \
+		rm Manual104s.pdf cardo.zip
+	wget -q -O fell.zip $(FELLFONTURL) ; \
+		unzip -q -j fell.zip ; \
+		rm Fell*License.txt fell.zip
+	chmod 644 *.otf *.ttf
 	touch $@
 
 images: fonts training_text.txt
