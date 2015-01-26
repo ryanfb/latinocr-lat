@@ -1,5 +1,5 @@
-FONTSITE = http://greekfontsociety.gr
-# FONTSITE = http://ancientgreekocr.org/archived # backup copies
+# FONTSITE = http://greekfontsociety.gr
+FONTSITE = http://ancientgreekocr.org/archived
 CARDOFONTURL = http://scholarsfonts.net/cardo104.zip
 FELLFONTURL = http://iginomarini.com/fell/wp-content/uploads/IMFellTypesClass.zip
 WORDLISTS = \
