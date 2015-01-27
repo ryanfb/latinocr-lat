@@ -18,16 +18,20 @@ FONT_NAMES = \
              "$(strip IM FELL Double Pica PRO ${MEDIUM})" \
              "$(strip IM FELL English PRO ${MEDIUM})" \
              "$(strip IM FELL French Canon PRO ${MEDIUM})" \
-             "$(strip IM FELL Great Primer PRO ${MEDIUM})"
-#             "GFS Bodoni Bold" \
-#             "GFS Bodoni Bold Italic" \
-#             "GFS Bodoni Medium Italic" \
-#             "GFS Didot Bold" \
-#             "GFS Didot Bold Italic" \
-#             "GFS Didot Medium Italic" \
-#             "Cardo Bold" \
-#             "Cardo Bold Italic" \
-#             "Cardo Medium Italic" \
+             "$(strip IM FELL Great Primer PRO ${MEDIUM})" \
+             "GFS Bodoni Bold" \
+             "GFS Bodoni Bold Italic" \
+             "$(strip GFS Bodoni ${MEDIUM} Italic)" \
+             "GFS Didot Bold" \
+             "GFS Didot Bold Italic" \
+             "$(strip GFS Didot ${MEDIUM} Italic)" \
+             "Cardo Bold" \
+             "$(strip Cardo ${MEDIUM} Italic)" \
+             "$(strip IM FELL DW Pica PRO ${MEDIUM} Italic)" \
+             "$(strip IM FELL Double Pica PRO ${MEDIUM} Italic)" \
+             "$(strip IM FELL English PRO ${MEDIUM} Italic)" \
+             "$(strip IM FELL French Canon PRO ${MEDIUM} Italic)" \
+             "$(strip IM FELL Great Primer PRO ${MEDIUM} Italic)"
 # proprietary fonts
 #             "Baskerville Medium" \
 #             "Baskerville Bold" \
@@ -39,11 +43,7 @@ FONT_NAMES = \
 #             "Adobe Garamond Pro Medium Italic" \
 #             "EB Garamond Medium" \
 #             "EB Garamond Medium Italic" \
-#             "IM FELL DW Pica PRO Medium Italic" \
-#             "IM FELL Double Pica PRO Medium Italic" \
-#             "IM FELL English PRO Medium Italic" \
-#             "IM FELL French Canon PRO Medium Italic" \
-#             "IM FELL Great Primer PRO Medium Italic"
+
 FONT_URLNAMES = \
                 GFS_ARTEMISIA_OT \
                 GFS_BODONI_OT \
