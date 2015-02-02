@@ -60,7 +60,7 @@ CHARSPACING = 1.0
 
 all: lat.traineddata
 
-lat.traineddata: features mftraining lat.normproto lat.unicharambigs $(DAWGS)
+lat.traineddata:  lat.config features lat.unicharset lat.pffmtable lat.inttemp lat.shapetable lat.normproto lat.unicharambigs $(DAWGS)
 	combine_tessdata lat.
 
 fonts:
@@ -107,12 +107,11 @@ lat.normproto: features
 	mv normproto $@
 
 # mftraining
-mftraining: lat.earlyunicharset features font_properties
+%.unicharset %.inttemp %.pffmtable %.shapetable: %.earlyunicharset features font_properties
 	mftraining -F font_properties -U lat.earlyunicharset -O lat.unicharset lat*tr
-	for i in inttemp pffmtable shapetable; do mv $$i lat.$$i; done
-	touch mftraining
+	for i in inttemp pffmtable shapetable; do mv $$i $*.$$i; done
 
-.txt-dawg: mftraining # for the newest .unicharset
+.txt-dawg: lat.unicharset # for the newest .unicharset
 	wordlist2dawg $< $@ lat.unicharset
 
 install: lat.traineddata
