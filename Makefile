@@ -2,6 +2,8 @@ FONTSITE = http://greekfontsociety.gr
 # FONTSITE = http://ancientgreekocr.org/archived # backup copies
 CARDOFONTURL = http://scholarsfonts.net/cardo104.zip
 FELLFONTURL = http://iginomarini.com/fell/wp-content/uploads/IMFellTypesClass.zip
+EBGARAMONDFONTURL = https://bitbucket.org/georgd/eb-garamond/downloads/EBGaramond-0.016.zip
+WYLDFONTURL = http://www.orbitals.com/programs/wyld.zip
 WORDLISTS = \
             lat.word.txt \
             lat.freq.txt \
@@ -31,7 +33,11 @@ FONT_NAMES = \
              "$(strip IM FELL Double Pica PRO ${MEDIUM} Italic)" \
              "$(strip IM FELL English PRO ${MEDIUM} Italic)" \
              "$(strip IM FELL French Canon PRO ${MEDIUM} Italic)" \
-             "$(strip IM FELL Great Primer PRO ${MEDIUM} Italic)"
+             "$(strip IM FELL Great Primer PRO ${MEDIUM} Italic)" \
+             "$(strip EB Garamond ${MEDIUM})" \
+             "$(strip EB Garamond ${MEDIUM} Italic)" \
+             "$(strip Wyld ${MEDIUM})" \
+             "$(strip Wyld ${MEDIUM} Italic)"
 # proprietary fonts
 #             "Baskerville Medium" \
 #             "Baskerville Bold" \
@@ -41,8 +47,6 @@ FONT_NAMES = \
 #             "Adobe Garamond Pro Bold" \
 #             "Adobe Garamond Pro Bold Italic" \
 #             "Adobe Garamond Pro Medium Italic" \
-#             "EB Garamond Medium" \
-#             "EB Garamond Medium Italic" \
 
 FONT_URLNAMES = \
                 GFS_ARTEMISIA_OT \
@@ -72,10 +76,16 @@ fonts:
 	done
 	wget -q -O cardo.zip $(CARDOFONTURL) ; \
 		unzip -q -j cardo.zip ; \
-		rm Manual104s.pdf cardo.zip
+		rm -f Manual104s.pdf cardo.zip
 	wget -q -O fell.zip $(FELLFONTURL) ; \
 		unzip -q -j fell.zip ; \
-		rm Fell*License.txt fell.zip
+		rm -f Fell*License.txt fell.zip
+	wget -q -O ebgaramond.zip $(EBGARAMONDFONTURL) ; \
+		unzip -q -j ebgaramond.zip
+		rm -f README.markdown COPYING README.xelualatex Specimen.pdf Changes EBGaramond*AllSC* EBGaramondSC* EBGaramond08* EBGaramond-Initials* ebgaramond.zip
+	wget -q -O wyld.zip $(WYLDFONTURL) ; \
+		unzip -q -j wyld.zip
+		rm -f WyldMacros.dot README.TXT wyld.zip
 	chmod 644 *.otf *.ttf
 	touch $@
 
