@@ -38,6 +38,10 @@ FONT_NAMES = \
              "$(strip EB Garamond ${MEDIUM} Italic)" \
              "$(strip Wyld ${MEDIUM})" \
              "$(strip Wyld ${MEDIUM} Italic)"
+LIGATURED_FONT_NAMES = \
+             "$(strip Cardo ${MEDIUM})" \
+             "$(strip EB Garamond ${MEDIUM})" \
+             "$(strip EB Garamond ${MEDIUM} Italic)"
 # proprietary fonts
 #             "Baskerville Medium" \
 #             "Baskerville Bold" \
@@ -100,13 +104,24 @@ images: fonts training_text.txt
 	done
 	touch $@
 
+ligature_images: fonts training_text.txt
+	for i in $(LIGATURED_FONT_NAMES); do \
+		n=`echo $$i | sed 's/ //g'` ; \
+		for e in -3 -2 -1 0 1 2 3; do \
+			text2image --exposure $$e --char_spacing $(CHARSPACING) \
+			           --fonts_dir . --text training_text.txt \
+			           --ligatures --outputbase lat.liga.$$n.exp$$e --font "Ligatured$$i" ; \
+		done ; \
+	done
+	touch $@
+
 # .tr files
-features: images
+features: images ligature_images
 	for i in *tif; do b=`basename $$i .tif`; tesseract $$i $$b box.train; done
 	touch $@
 
 # unicharset to pass to mftraining
-lat.earlyunicharset: images
+lat.earlyunicharset: images ligature_images
 	unicharset_extractor *box
 	set_unicharset_properties -U unicharset -O $@ --script_dir .
 	rm unicharset
@@ -128,7 +143,7 @@ install: lat.traineddata
 	cp lat.traineddata ../../../tessdata
 
 clean:
-	rm -f images features mftraining *tif *box *tr *dawg lat.GFS*txt
+	rm -f images features mftraining *tif *box *tr *dawg lat.GFS*txt ligature_images
 	rm -f lat.inttemp lat.normproto lat.pffmtable lat.shapetable lat.unicharset lat.earlyunicharset
 
 cleanfonts:

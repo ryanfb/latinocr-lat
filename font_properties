@@ -50,6 +50,8 @@ CardoItalic 1 0 0 1 0
 CardoMediumItalic 1 0 0 1 0
 CardoBoldItalic 1 1 0 1 0
 CardoMedium 0 0 0 1 0
+LigaturedCardo 0 0 0 1 0
+LigaturedCardoMedium 0 0 0 1 0
 IMFELLDWPicaPRO 0 0 0 1 0
 IMFELLDWPicaPROBold 0 1 0 1 0
 IMFELLDWPicaPROItalic 1 0 0 1 0
@@ -84,6 +86,10 @@ EBGaramond 0 0 0 1 0
 EBGaramondMedium 0 0 0 1 0
 EBGaramondItalic 1 0 0 1 0
 EBGaramondMediumItalic 1 0 0 1 0
+LigaturedEBGaramond 0 0 0 1 0
+LigaturedEBGaramondMedium 0 0 0 1 0
+LigaturedEBGaramondItalic 1 0 0 1 0
+LigaturedEBGaramondMediumItalic 1 0 0 1 0
 Wyld 0 0 0 1 0
 WyldMedium 0 0 0 1 0
 WyldItalic 1 0 0 1 0
