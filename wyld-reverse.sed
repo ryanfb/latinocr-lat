@@ -1,4 +1,5 @@
-#!/usr/bin/env sed -f
+#!/bin/sh
+sed '
 s/Â/ffi/g
 s/Ã/ffl/g
 s/Á/ff/g
@@ -10,4 +11,4 @@ s/É/si/g
 s/Ê/sl/g
 s/Ë/ss/g
 s/Ì/st/g
-s/Ç/ſ/g
+s/Ç/ſ/g' $1
