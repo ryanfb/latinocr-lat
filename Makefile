@@ -110,7 +110,7 @@ ligature_images: fonts training_text.txt
 		for e in -3 -2 -1 0 1 2 3; do \
 			text2image --exposure $$e --char_spacing $(CHARSPACING) \
 			           --fonts_dir . --text training_text.txt \
-			           --ligatures --outputbase lat.liga.$$n.exp$$e --font "Ligatured$$i" ; \
+			           --ligatures --outputbase lat.liga.$$n.exp$$e --font "$$i" ; \
 		done ; \
 	done
 	touch $@
