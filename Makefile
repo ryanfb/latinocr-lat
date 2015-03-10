@@ -123,8 +123,8 @@ ligature_images: fonts training_text.txt
 			text2image --exposure $$e --char_spacing $(CHARSPACING) \
 			           --fonts_dir . --text wyld_training_text.txt \
 			           --ligatures --outputbase lat.liga.$$n.exp$$e --font "$$i" ; \
-			./wyld-reverse.sed lat.liga.$$n.exp$$e.box > lat.liga.$$n.exp$$e.box.fixed
-			mv -v lat.liga.$$n.exp$$e.box.fixed lat.liga.$$n.exp$$e.box
+			./wyld-reverse.sed lat.liga.$$n.exp$$e.box > lat.liga.$$n.exp$$e.box.fixed ; \
+			mv -v lat.liga.$$n.exp$$e.box.fixed lat.liga.$$n.exp$$e.box ; \
 		done ; \
 	done
 	touch $@
