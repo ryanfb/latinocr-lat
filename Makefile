@@ -40,11 +40,9 @@ FONT_NAMES = \
              "$(strip Wyld ${MEDIUM} Italic)"
 LIGATURED_FONT_NAMES = \
              "$(strip Cardo ${MEDIUM})" \
-             "$(strip EB Garamond ${MEDIUM})" \
-             "$(strip EB Garamond ${MEDIUM} Italic)"
+             "$(strip EB Garamond ${MEDIUM})"
 WYLD_FONT_NAMES = \
-             "$(strip Wyld ${MEDIUM})" \
-             "$(strip Wyld ${MEDIUM} Italic)"
+             "$(strip Wyld ${MEDIUM})"
 # proprietary fonts
 #             "Baskerville Medium" \
 #             "Baskerville Bold" \
