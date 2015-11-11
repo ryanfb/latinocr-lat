@@ -162,6 +162,9 @@ lat.normproto: features
 tools/xheight: tools/xheight.c
 	$(CC) $(CAIROCFLAGS) $(UTFSRC) $@.c -o $@ $(CAIROLDFLAGS)
 
+tools/addmetrics: tools/addmetrics.c
+	$(CC) $(CAIROCFLAGS) $(UTFSRC) $@.c -o $@ $(CAIROLDFLAGS)
+
 Latin.xheights: tools/xheight
 	rm -f Latin.xheights
 	for i in $(FONT_NAMES); do \
@@ -169,6 +172,13 @@ Latin.xheights: tools/xheight
 		| awk '{for(i=1;i<NF-1;i++) {printf("%s_",$$i)} printf("%s %d\n", $$(NF-1), $$NF)}' \
 		>>$@ ; \
 	done
+
+Latin.unicharset: tools/addmetrics
+	rm -f Latin.unicharset allchars.box unicharset
+	sed 's/$$/ 0 0 0 0 0/g' < allchars.txt > allchars.box
+	unicharset_extractor allchars.box
+	set_unicharset_properties -U unicharset -O unicharset --script_dir .
+	./tools/addmetrics $(FONT_NAMES) < unicharset > $@
 
 install: lat.traineddata
 	cp lat.traineddata ../../../tessdata
