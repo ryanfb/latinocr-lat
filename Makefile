@@ -66,6 +66,10 @@ FONT_URLNAMES = \
                 GFS_PYRSOS \
                 GFS_SOLOMOS_OT
 CHARSPACING = 1.0
+CAIROCFLAGS = `pkg-config --cflags pangocairo`
+CAIROLDFLAGS = `pkg-config --libs pangocairo`
+
+UTFSRC = tools/libutf/rune.c tools/libutf/utf.c
 
 .SUFFIXES: .txt -dawg
 
@@ -155,9 +159,19 @@ lat.normproto: features
 .txt-dawg: lat.unicharset # for the newest .unicharset
 	wordlist2dawg $< $@ lat.unicharset
 
+tools/xheight: tools/xheight.c
+	$(CC) $(CAIROCFLAGS) $(UTFSRC) $@.c -o $@ $(CAIROLDFLAGS)
+
+Latin.xheights: tools/xheight
+	rm -f Latin.xheights
+	for i in $(FONT_NAMES); do \
+		./tools/xheight "$$i" \
+		| awk '{for(i=1;i<NF-1;i++) {printf("%s_",$$i)} printf("%s %d\n", $$(NF-1), $$NF)}' \
+		>>$@ ; \
+	done
+
 install: lat.traineddata
 	cp lat.traineddata ../../../tessdata
-
 clean:
 	rm -f images features mftraining *tif *box *tr *dawg lat.GFS*txt ligature_images
 	rm -f lat.inttemp lat.normproto lat.pffmtable lat.shapetable lat.unicharset lat.earlyunicharset
