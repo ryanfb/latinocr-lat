@@ -134,6 +134,10 @@ langdata/lat/lat.punc: lat.punc.txt
 	mkdir -p langdata/lat
 	cp -v $< $@
 
+langdata/lat/lat.numbers: lat.numbers.txt
+	mkdir -p langdata/lat
+	cp -v $< $@
+
 fonts/download:
 	rm -rf fonts
 	mkdir -p fonts
