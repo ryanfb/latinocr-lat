@@ -8,7 +8,6 @@ WORDLISTS = \
             lat.word.txt \
             lat.freq.txt \
             lat.punc.txt
-DAWGS = $(WORDLISTS:.txt=-dawg)
 ifeq ($(shell uname),Darwin)
 	MEDIUM = Medium
 endif
@@ -162,17 +161,6 @@ fonts/download:
 	cd fonts && chmod 644 *.otf *.ttf
 	touch $@
 
-images: fonts training_text.txt
-	for i in $(FONT_NAMES); do \
-		n=`echo $$i | sed 's/ //g'` ; \
-		for e in -3 -2 -1 0 1 2 3; do \
-			text2image --exposure $$e --char_spacing $(CHARSPACING) \
-			           --fonts_dir . --text training_text.txt \
-			           --outputbase lat.$$n.exp$$e --font "$$i" ; \
-		done ; \
-	done
-	touch $@
-
 ligature_images: fonts training_text.txt
 	for i in $(LIGATURED_FONT_NAMES); do \
 		n=`echo $$i | sed 's/ //g'` ; \
@@ -196,30 +184,6 @@ ligature_images: fonts training_text.txt
 		done ; \
 	done
 	touch $@
-
-# .tr files
-features: images ligature_images
-	for i in *tif; do b=`basename $$i .tif`; tesseract $$i $$b box.train; done
-	touch $@
-
-# unicharset to pass to mftraining
-lat.earlyunicharset: images ligature_images
-	unicharset_extractor *box
-	set_unicharset_properties -U unicharset -O $@ --script_dir .
-	rm unicharset
-
-# cntraining
-lat.normproto: features
-	cntraining lat*tr
-	mv normproto $@
-
-# mftraining
-%.unicharset %.inttemp %.pffmtable %.shapetable: %.earlyunicharset features font_properties
-	mftraining -F font_properties -U lat.earlyunicharset -O lat.unicharset lat*tr
-	for i in inttemp pffmtable shapetable; do mv $$i $*.$$i; done
-
-.txt-dawg: lat.unicharset # for the newest .unicharset
-	wordlist2dawg $< $@ lat.unicharset
 
 tools/xheight: tools/xheight.c
 	$(CC) $(CAIROCFLAGS) $(UTFSRC) $@.c -o $@ $(CAIROLDFLAGS)
