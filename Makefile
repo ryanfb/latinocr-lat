@@ -55,6 +55,33 @@ WYLD_FONT_NAMES = \
 #             "Adobe Garamond Pro Bold Italic" \
 #             "Adobe Garamond Pro Medium Italic" \
 
+FONT_LIST_TESS = \
+								 'GFS Bodoni \
+								 + GFS Bodoni Bold \
+								 + GFS Bodoni Italic \
+								 + GFS Bodoni Bold Italic \
+								 + GFS Didot \
+								 + GFS Didot Bold \
+								 + GFS Didot Italic \
+								 + GFS Didot Bold Italic \
+								 + Cardo \
+								 + Cardo Bold \
+								 + Cardo Italic \
+								 + Wyld \
+								 + Wyld Italic \
+								 + EB Garamond \
+								 + EB Garamond Italic \
+								 + IM FELL DW Pica PRO \
+								 + IM FELL English PRO \
+								 + IM FELL Double Pica PRO \
+								 + IM FELL French Canon PRO \
+								 + IM FELL Great Primer PRO \
+								 + IM FELL DW Pica PRO Italic \
+								 + IM FELL English PRO Italic \
+								 + IM FELL Double Pica PRO Italic \
+								 + IM FELL French Canon PRO Italic \
+								 + IM FELL Great Primer PRO Italic'
+
 FONT_URLNAMES = \
                 GFS_ARTEMISIA_OT \
                 GFS_BODONI_OT \
@@ -75,29 +102,60 @@ UTFSRC = tools/libutf/rune.c tools/libutf/utf.c
 
 all: lat.traineddata
 
-lat.traineddata:  lat.config features lat.unicharset lat.pffmtable lat.inttemp lat.shapetable lat.normproto lat.unicharambigs $(DAWGS)
-	combine_tessdata lat.
+GENLANGDATA = \
+	langdata/lat/lat.config \
+	langdata/lat/lat.training_text \
+	langdata/lat/lat.training_text.unigram_freqs \
+	langdata/lat/lat.unicharambigs \
+	langdata/lat/lat.punc \
+	langdata/lat/lat.numbers \
+	langdata/lat/lat.wordlist \
+	langdata/lat/lat.unicharset \
+	langdata/lat/lat.xheights \
+	langdata/Latin.unicharset \
+	langdata/Latin.xheights \
+	langdata/font_properties
 
-fonts:
-	for i in $(FONT_URLNAMES); do \
+AMBIGS = \
+				 unicharambigs/common.unicharambigs \
+				 unicharambigs/ligatures.unicharambigs \
+				 unicharambigs/long-s.unicharambigs \
+				 unicharambigs/orthographic.unicharambigs \
+				 unicharambigs/ct.unicharambigs
+
+lat.traineddata: $(GENLANGDATA) fonts/download
+	tesstrain.sh --exposures -3 -2 -1 0 1 2 3 --fonts_dir fonts --fontlist $(FONT_LIST_TESS) --lang lat --langdata_dir langdata --overwrite --output_dir .
+
+langdata/lat/lat.config: lat.config
+	mkdir -p langdata/lat
+	cp -v $< $@
+
+langdata/lat/lat.punc: lat.punc.txt
+	mkdir -p langdata/lat
+	cp -v $< $@
+
+fonts/download:
+	rm -rf fonts
+	mkdir -p fonts
+	cd fonts && for i in $(FONT_URLNAMES); do \
 		wget -q -O $$i.zip $(FONTSITE)/$$i.zip ; \
 		unzip -q -j $$i.zip ; \
 		rm -f OFL-FAQ.txt OFL.txt *Specimen.pdf *Specimenn.pdf ; \
 		rm -f readme.rtf .DS_Store ._* $$i.zip; \
 	done
-	wget -q -O cardo.zip $(CARDOFONTURL) ; \
+	cd fonts && wget -q -O cardo.zip $(CARDOFONTURL) ; \
 		unzip -q -j cardo.zip ; \
 		rm -f Manual104s.pdf cardo.zip
-	wget -q -O fell.zip $(FELLFONTURL) ; \
+	cd fonts && wget -q -O fell.zip $(FELLFONTURL) ; \
 		unzip -q -j fell.zip ; \
 		rm -f Fell*License.txt fell.zip
-	wget -q -O ebgaramond.zip $(EBGARAMONDFONTURL) ; \
-		unzip -q -j ebgaramond.zip
+	cd fonts && wget -q -O ebgaramond.zip $(EBGARAMONDFONTURL) ; \
+		unzip -q -j ebgaramond.zip ; \
 		rm -f README.markdown COPYING README.xelualatex Specimen.pdf Changes EBGaramond*AllSC* EBGaramondSC* EBGaramond08* EBGaramond-Initials* ebgaramond.zip
-	wget -q -O wyld.zip $(WYLDFONTURL) ; \
-		unzip -q -j wyld.zip
+	cd fonts && wget -q -O wyld.zip $(WYLDFONTURL) ; \
+		unzip -q -j wyld.zip ; \
 		rm -f WyldMacros.dot README.TXT wyld.zip
-	chmod 644 *.otf *.ttf
+	cd fonts && chmod 644 *.otf *.ttf
 	touch $@
 
 images: fonts training_text.txt
@@ -165,26 +223,46 @@ tools/xheight: tools/xheight.c
 tools/addmetrics: tools/addmetrics.c
 	$(CC) $(CAIROCFLAGS) $(UTFSRC) $@.c -o $@ $(CAIROLDFLAGS)
 
-Latin.xheights: tools/xheight
-	rm -f Latin.xheights
+langdata/Latin.xheights: tools/xheight
+	mkdir -p langdata
+	rm -f $@
 	for i in $(FONT_NAMES); do \
 		./tools/xheight "$$i" \
 		| awk '{for(i=1;i<NF-1;i++) {printf("%s_",$$i)} printf("%s %d\n", $$(NF-1), $$NF)}' \
 		>>$@ ; \
 	done
 
-Latin.unicharset: tools/addmetrics
-	rm -f Latin.unicharset allchars.box unicharset
+langdata/lat/lat.xheights: langdata/Latin.xheights
+	mkdir -p langdata/lat
+	cp -v $< $@
+
+langdata/Latin.unicharset : tools/addmetrics
+	mkdir -p langdata
+	rm -f $@ allchars.box unicharset
 	sed 's/$$/ 0 0 0 0 0/g' < allchars.txt > allchars.box
 	unicharset_extractor allchars.box
 	set_unicharset_properties -U unicharset -O unicharset --script_dir .
 	./tools/addmetrics $(FONT_NAMES) < unicharset > $@
 
+langdata/lat/lat.unicharset: langdata/Latin.unicharset
+	mkdir -p langdata/lat
+	cp -v $< $@
+
+langdata/lat/lat.unicharambigs: $(AMBIGS)
+	mkdir -p langdata/lat
+	echo v1 > $@
+	cat $(AMBIGS) >> $@
+
 install: lat.traineddata
 	cp lat.traineddata ../../../tessdata
+
 clean:
+	rm -f tools/xheights tools/addmetrics
 	rm -f images features mftraining *tif *box *tr *dawg lat.GFS*txt ligature_images
 	rm -f lat.inttemp lat.normproto lat.pffmtable lat.shapetable lat.unicharset lat.earlyunicharset
+	rm -rf fonts
+	rm -f $(GENLANGDATA)
+	rm -f lat.traineddata
 
 cleanfonts:
 	rm -f fonts *otf
