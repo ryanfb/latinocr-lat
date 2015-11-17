@@ -176,18 +176,18 @@ ligature_images: fonts training_text.txt
 			text2image --exposure $$e --char_spacing $(CHARSPACING) \
 			           --fonts_dir . --text training_text.txt \
 			           --ligatures --outputbase lat.liga.$$n.exp$$e --font "$$i" ; \
-			./ligatured-reverse.sed lat.liga.$$n.exp$$e.box > lat.liga.$$n.exp$$e.box.fixed ; \
+			./tools/ligatured-reverse.sed lat.liga.$$n.exp$$e.box > lat.liga.$$n.exp$$e.box.fixed ; \
 			mv -v lat.liga.$$n.exp$$e.box.fixed lat.liga.$$n.exp$$e.box ; \
 		done ; \
 	done
-	./wyld.sed training_text.txt > wyld_training_text.txt
+	./tools/wyld.sed training_text.txt > wyld_training_text.txt
 	for i in $(WYLD_FONT_NAMES); do \
 		n=`echo $$i | sed 's/ //g'` ; \
 		for e in -3 -2 -1 0 1 2 3; do \
 			text2image --exposure $$e --char_spacing $(CHARSPACING) \
 			           --fonts_dir . --text wyld_training_text.txt \
 			           --ligatures --outputbase lat.liga.$$n.exp$$e --font "$$i" ; \
-			./wyld-reverse.sed lat.liga.$$n.exp$$e.box > lat.liga.$$n.exp$$e.box.fixed ; \
+			./tools/wyld-reverse.sed lat.liga.$$n.exp$$e.box > lat.liga.$$n.exp$$e.box.fixed ; \
 			mv -v lat.liga.$$n.exp$$e.box.fixed lat.liga.$$n.exp$$e.box ; \
 		done ; \
 	done
