@@ -4,10 +4,6 @@ CARDOFONTURL = http://scholarsfonts.net/cardo104.zip
 FELLFONTURL = http://iginomarini.com/fell/wp-content/uploads/IMFellTypesClass.zip
 EBGARAMONDFONTURL = https://bitbucket.org/georgd/eb-garamond/downloads/EBGaramond-0.016.zip
 WYLDFONTURL = http://www.orbitals.com/programs/wyld.zip
-WORDLISTS = \
-            lat.word.txt \
-            lat.freq.txt \
-            lat.punc.txt
 ifeq ($(shell uname),Darwin)
 	MEDIUM = Medium
 endif
@@ -115,6 +111,11 @@ GENLANGDATA = \
 	langdata/Latin.xheights \
 	langdata/font_properties
 
+langdata/lat/lat.training_text langdata/lat/lat.training_text.unigram_freqs langdata/lat/lat.wordlist: latinocr-lattraining
+	mkdir -p langdata/lat
+	$(MAKE) -C latinocr-lattraining
+	cp -v latinocr-lattraining/lat.training_text latinocr-lattraining/lat.training_text.unigram_freqs latinocr-lattraining/lat.wordlist langdata/lat
+
 AMBIGS = \
 				 unicharambigs/common.unicharambigs \
 				 unicharambigs/ligatures.unicharambigs \
@@ -204,10 +205,14 @@ langdata/lat/lat.xheights: langdata/Latin.xheights
 	mkdir -p langdata/lat
 	cp -v $< $@
 
-langdata/Latin.unicharset : tools/addmetrics
+langdata/font_properties: font_properties
+	mkdir -p langdata
+	cp -v $< $@
+
+langdata/Latin.unicharset : tools/addmetrics latinocr-lattraining/allchars.txt
 	mkdir -p langdata
 	rm -f $@ allchars.box unicharset
-	sed 's/$$/ 0 0 0 0 0/g' < allchars.txt > allchars.box
+	sed 's/$$/ 0 0 0 0 0/g' < latinocr-lattraining/allchars.txt > allchars.box
 	unicharset_extractor allchars.box
 	set_unicharset_properties -U unicharset -O unicharset --script_dir .
 	./tools/addmetrics $(FONT_NAMES) < unicharset > $@
@@ -230,6 +235,7 @@ clean:
 	rm -f lat.inttemp lat.normproto lat.pffmtable lat.shapetable lat.unicharset lat.earlyunicharset
 	rm -rf fonts
 	rm -f $(GENLANGDATA)
+	$(MAKE) -C latinocr-lattraining clean
 	rm -f lat.traineddata
 
 cleanfonts:

@@ -1,0 +1,3 @@
+[submodule "latinocr-lattraining"]
+	path = latinocr-lattraining
+	url = https://github.com/ryanfb/latinocr-lattraining.git
