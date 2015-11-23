@@ -4,6 +4,7 @@ CARDOFONTURL = http://scholarsfonts.net/cardo104.zip
 FELLFONTURL = http://iginomarini.com/fell/wp-content/uploads/IMFellTypesClass.zip
 EBGARAMONDFONTURL = https://bitbucket.org/georgd/eb-garamond/downloads/EBGaramond-0.016.zip
 WYLDFONTURL = http://www.orbitals.com/programs/wyld.zip
+JUNICODEFONTURL = http://sourceforge.net/projects/junicode/files/junicode/junicode-0-7-8/junicode-0-7-8.zip/download
 ifeq ($(shell uname),Darwin)
 	MEDIUM = Medium
 endif
@@ -24,6 +25,10 @@ FONT_NAMES = \
              "$(strip GFS Didot ${MEDIUM} Italic)" \
              "Cardo Bold" \
              "$(strip Cardo ${MEDIUM} Italic)" \
+             "$(strip Junicode ${MEDIUM})" \
+             "Junicode Bold" \
+             "Junicode Bold Italic" \
+             "$(strip Junicode ${MEDIUM} Italic)" \
              "$(strip IM FELL DW Pica PRO ${MEDIUM} Italic)" \
              "$(strip IM FELL Double Pica PRO ${MEDIUM} Italic)" \
              "$(strip IM FELL English PRO ${MEDIUM} Italic)" \
@@ -66,6 +71,10 @@ FONT_LIST_TESS = \
 								 + Wyld Italic \
 								 + EB Garamond \
 								 + EB Garamond Italic \
+								 + Junicode \
+								 + Junicode Bold \
+								 + Junicode Italic \
+								 + Junicode Bold Italic \
 								 + IM FELL DW Pica PRO \
 								 + IM FELL English PRO \
 								 + IM FELL Double Pica PRO \
@@ -159,6 +168,8 @@ fonts/download:
 	cd fonts && wget -q -O wyld.zip $(WYLDFONTURL) ; \
 		unzip -q -j wyld.zip ; \
 		rm -f WyldMacros.dot README.TXT wyld.zip
+	cd fonts && wget -q -O junicode.zip $(JUNICODEFONTURL) ; \
+		unzip -q -j junicode.zip "junicode/fonts/Junicode*.ttf"
 	cd fonts && chmod 644 *.otf *.ttf
 	touch $@
 
