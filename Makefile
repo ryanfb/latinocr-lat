@@ -132,6 +132,10 @@ AMBIGS = \
 				 unicharambigs/orthographic.unicharambigs \
 				 unicharambigs/ct.unicharambigs
 
+.PHONY: tesstrain-prereqs clean install cleanfonts
+.PRECIOUS: $(GENLANGDATA) fonts/download
+tesstrain-prereqs: $(GENLANGDATA) fonts/download
+
 lat.traineddata: $(GENLANGDATA) fonts/download
 	tesstrain.sh --exposures -3 -2 -1 0 1 2 3 --fonts_dir fonts --fontlist $(FONT_LIST_TESS) --lang lat --langdata_dir langdata --overwrite --output_dir .
 
