@@ -55,37 +55,6 @@ WYLD_FONT_NAMES = \
 #             "Adobe Garamond Pro Bold Italic" \
 #             "Adobe Garamond Pro Medium Italic" \
 
-FONT_LIST_TESS = \
-								 'GFS Bodoni \
-								 + GFS Bodoni Bold \
-								 + GFS Bodoni Italic \
-								 + GFS Bodoni Bold Italic \
-								 + GFS Didot \
-								 + GFS Didot Bold \
-								 + GFS Didot Italic \
-								 + GFS Didot Bold Italic \
-								 + Cardo \
-								 + Cardo Bold \
-								 + Cardo Italic \
-								 + Wyld \
-								 + Wyld Italic \
-								 + EB Garamond \
-								 + EB Garamond Italic \
-								 + Junicode \
-								 + Junicode Bold \
-								 + Junicode Italic \
-								 + Junicode Bold Italic \
-								 + IM FELL DW Pica PRO \
-								 + IM FELL English PRO \
-								 + IM FELL Double Pica PRO \
-								 + IM FELL French Canon PRO \
-								 + IM FELL Great Primer PRO \
-								 + IM FELL DW Pica PRO Italic \
-								 + IM FELL English PRO Italic \
-								 + IM FELL Double Pica PRO Italic \
-								 + IM FELL French Canon PRO Italic \
-								 + IM FELL Great Primer PRO Italic'
-
 FONT_URLNAMES = \
                 GFS_ARTEMISIA_OT \
                 GFS_BODONI_OT \
@@ -137,7 +106,7 @@ AMBIGS = \
 tesstrain-prereqs: $(GENLANGDATA) fonts/download
 
 lat.traineddata: $(GENLANGDATA) fonts/download
-	tesstrain.sh --exposures -3 -2 -1 0 1 2 3 --fonts_dir fonts --fontlist $(FONT_LIST_TESS) --lang lat --langdata_dir langdata --overwrite --output_dir .
+	tesstrain.sh --exposures -3 -2 -1 0 1 2 3 --fonts_dir fonts --fontlist $(FONT_NAMES) --lang lat --langdata_dir langdata --overwrite --output_dir .
 
 langdata/lat/lat.config: lat.config
 	mkdir -p langdata/lat
