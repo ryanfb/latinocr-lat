@@ -26,10 +26,10 @@ FONT_NAMES = \
              "$(strip GFS Didot ${MEDIUM} Italic)" \
              "Cardo Bold" \
              "$(strip Cardo ${MEDIUM} Italic)" \
-             "$(strip Junicode ${MEDIUM})" \
-             "Junicode Bold" \
-             "Junicode Bold Italic" \
-             "$(strip Junicode ${MEDIUM} Italic)" \
+             # "$(strip Junicode ${MEDIUM})" \
+             # "Junicode Bold" \
+             # "Junicode Bold Italic" \
+             # "$(strip Junicode ${MEDIUM} Italic)" \
              "$(strip IM FELL DW Pica PRO ${MEDIUM} Italic)" \
              "$(strip IM FELL Double Pica PRO ${MEDIUM} Italic)" \
              "$(strip IM FELL English PRO ${MEDIUM} Italic)" \
