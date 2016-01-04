@@ -3,4 +3,9 @@ lat.*.tr
 lat.*.box
 *.otf
 *.ttf
-
+fonts/
+unicharset
+allchars.box
+langdata/
+tools/addmetrics
+tools/xheight
