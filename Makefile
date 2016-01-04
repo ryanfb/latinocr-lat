@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 FONTSITE = http://greekfontsociety.gr
 # FONTSITE = http://ancientgreekocr.org/archived # backup copies
 CARDOFONTURL = http://scholarsfonts.net/cardo104.zip
@@ -108,9 +109,9 @@ tesstrain-prereqs: $(GENLANGDATA) fonts/download
 lat.traineddata: $(GENLANGDATA) fonts/download
 	tesstrain.sh --exposures -3 -2 -1 0 1 2 3 --fonts_dir fonts --fontlist $(FONT_NAMES) --lang lat --langdata_dir langdata --overwrite --output_dir .
 
-langdata/lat/lat.config: lat.config
+langdata/lat/lat.config: .git/HEAD lat.config
 	mkdir -p langdata/lat
-	cp -v $< $@
+	sed -f <(printf '3i \\\n# commit: %s\n' `git rev-list -n 1 HEAD`) < lat.config > $@
 
 langdata/lat/lat.punc: lat.punc.txt
 	mkdir -p langdata/lat
